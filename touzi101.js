@@ -1,4 +1,4 @@
-//phantomjs --output-encoding=gb2312 pic.js// print chinese encoding
+//phantomjs --output-encoding=gb2312 file.js// print chinese encoding
 var RenderUrlsToFile, arrayOfUrls, system;
 var  website = {
     "web1":[
