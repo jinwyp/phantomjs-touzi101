@@ -6,7 +6,7 @@ var  website = [
     ];
 
 var RenderUrlsToFile, websiteresult, system;
-websiteresult = {};
+websiteresult = [];
 system = require("system");
 
 
@@ -55,30 +55,25 @@ RenderUrlsToFile = function(websitedata, callbackPerUrl, callbackFinal) {
                 console.log("Start to capture page: " + pagedata.url + ". save in:" + filename + ". status:" + pagedata.status);
 
                 if (status === "success") {
-//                    window.setTimeout((function() {
-//                        page.render(filename);
-//                    }), 1000);
-                    var title = page.evaluate(function() {
-                        console.log(document.title);
-                        return document.title;
-                    });
-                    console.log(title);
+                    window.setTimeout((function() {
+                        page.render(filename);
+                    }), 1000);
 
-//                    page.evaluate(function() {
-//                        console.log("222222");
-//                        var pagedata1 = {};
-//                        pagedata1.title = document.titlel;
-//                        pagedata1.title = document.querySelector("title").innerText;
-//                        pagedata1.keyword = document.querySelector("meta[name=Keywords]").getAttribute("content");
-//                        pagedata1.description = document.querySelector("meta[name=Description]").getAttribute("content");
-//                        return pagedata1;
-//                    });
+                    pagedata = page.evaluate(function(filename1, pagedata1) {
+                        pagedata1.title = document.titlel;
+                        pagedata1.title = document.querySelector("title").innerText;
+                        pagedata1.keyword = document.querySelector("meta[name=Keywords]").getAttribute("content");
+                        pagedata1.description = document.querySelector("meta[name=Description]").getAttribute("content");
+                        return pagedata1;
+                    }, filename, pagedata);
 
-//                    websiteresult.push(pageresult);
+                    console.log(pagedata.keyword);
+
+                    websiteresult.push(pagedata);
                     return next(status, pagedata, filename);
 
                 } else {
-//                    websiteresult.push(pagedata);
+                    websiteresult.push(pagedata);
                     return next(status, pagedata, filename);
                 }
             });
@@ -107,7 +102,7 @@ RenderUrlsToFile(website, (function(status, pagedata, filename) {
     if (status !== "success") {
         return console.log("Unable to render '" + pagedata.url + "'");
     } else {
-        return console.log("Rendered '" + pagedata.url + "' at '" + filename + "'");
+        return console.log("Finished Rendering '" + pagedata.url + "' at '" + filename + "'");
     }
 }), function(result) {
     console.log("Final Result: " + result.length);

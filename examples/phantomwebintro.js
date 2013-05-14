@@ -3,7 +3,7 @@
 var page = require('webpage').create();
 
 page.onConsoleMessage = function(msg) {
-    console.log(msg);
+//    console.log(msg);
 };
 
 page.open("http://www.phantomjs.org", function(status) {
