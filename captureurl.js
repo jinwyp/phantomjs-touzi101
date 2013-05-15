@@ -120,6 +120,15 @@ RenderUrlsToFile(website, (function(status, pagedata) {
     var service = server.listen(8080, function(request, response) {
         response.statusCode = 200;
         response.write('<html><body><table>');
+                    response.write('<tr>');
+            response.write('<th>' +'PAGE NAME'  + '</th>');
+            response.write('<th>' + 'PAGE TITLE'  + '</th>');
+            response.write('<th>' + 'PAGE URL'  + '</th>');
+            response.write('<th>' + 'PAGE KEYWORDS'  + '</th>');
+            response.write('<th>' + 'PAGE DESCRIPTION'  + '</th>');
+            response.write('<th>' + 'PAGE STATUS'  + '</th>');
+            response.write('<th>' + 'PAGE IMAGE NAME'  + '</th>');
+            response.write('</tr>');
         for(var i=0; i<result.length; i++){
             response.write('<tr>');
             response.write('<td>' + result[i].pagename  + '</td>');
