@@ -1,15 +1,12 @@
 // Render Multiple URLs to file
 
 var  website = [
-    {"pagename":"Homepage", "url":"http://www.touzi101.cn/", "title":"", "keyword":"", "description":"", "status":""},
-    {"pagename":"Homepage", "url":"http://www.touzi101.cn/dictionary/", "title":"", "keyword":"", "description":"", "status":""}
+    {"pagename":"Homepage", "url":"http://www.touzi101.cn/", "title":"", "keyword":"", "description":"", "status":"", "filename":""},
+    {"pagename":"ChannelPage-dictionary", "url":"http://www.touzi101.cn/dictionary/", "title":"", "keyword":"", "description":"", "status":"", "filename":""}
     ];
 
-var RenderUrlsToFile, websiteresult, system;
-websiteresult = [];
+var RenderUrlsToFile,  system;
 system = require("system");
-
-
 
 
 
@@ -20,24 +17,24 @@ Render given urls
 @param callbackFinal Function called after finishing everything
 */
 RenderUrlsToFile = function(websitedata, callbackPerUrl, callbackFinal) {
-    var  next, finish, page, retrieve, urlIndex, webpage;
+    var  next, finish, page, retrieve, urlIndex, webpage, websiteresult;
+    websiteresult = [];
     urlIndex = 0;
     webpage = require("webpage");
     page = null;
 
-    next = function(status, pagedata, filename) {
+    next = function(status, pagedata) {
         page.close();
-        callbackPerUrl(status, pagedata, filename);
+        callbackPerUrl(status, pagedata);
         return retrieve();
     };
 
     finish = function(result) {
-
         return callbackFinal(result);
     };
 
     retrieve = function() {
-        var pagedata, title, status ;
+        var pagedata ;
         if (websitedata.length > 0) {
             pagedata = website.shift();
             urlIndex++;
@@ -49,32 +46,36 @@ RenderUrlsToFile = function(websitedata, callbackPerUrl, callbackFinal) {
             page.settings.userAgent = "Phantom.js bot";
 
             page.open(pagedata.url, function(status) {
+                var datenow = new Date();
+                var starttime = datenow.getFullYear()+"-"+datenow.getMonth()+1+"-"+datenow.getDate()+"-"+datenow.getHours()+":"+datenow.getMinutes()+":"+datenow.getSeconds() ;
 
-                var filename = pagedata.pagename + "-num" + urlIndex + "-" +  Date.now() + ".png";
+                pagedata.filename = pagedata.pagename + "-num" + urlIndex + "-" +  starttime + ".png";
                 pagedata.status = status;
-                console.log("Start to capture page: " + pagedata.url + ". save in:" + filename + ". status:" + pagedata.status);
+                console.log("Start to capture page: " + pagedata.url + ". save in:" + pagedata.filename + ". status:" + pagedata.status);
 
                 if (status === "success") {
                     window.setTimeout((function() {
-                        page.render(filename);
+                        page.render( pagedata.filename);
+
+                        var datenow = new Date();
+                        var endtime = datenow.getFullYear()+"-"+datenow.getMonth()+1+"-"+datenow.getDate()+"-"+datenow.getHours()+":"+datenow.getMinutes()+":"+datenow.getSeconds() ;
+                        console.log("Finish screenshot time:" + endtime + pagedata.filename );
                     }), 1000);
 
-                    pagedata = page.evaluate(function(filename1, pagedata1) {
+                    pagedata = page.evaluate(function(pagedata1) {
                         pagedata1.title = document.titlel;
                         pagedata1.title = document.querySelector("title").innerText;
                         pagedata1.keyword = document.querySelector("meta[name=Keywords]").getAttribute("content");
                         pagedata1.description = document.querySelector("meta[name=Description]").getAttribute("content");
                         return pagedata1;
-                    }, filename, pagedata);
-
-                    console.log(pagedata.keyword);
+                    }, pagedata);
 
                     websiteresult.push(pagedata);
-                    return next(status, pagedata, filename);
+                    return next(status, pagedata);
 
                 } else {
                     websiteresult.push(pagedata);
-                    return next(status, pagedata, filename);
+                    return next(status, pagedata);
                 }
             });
 
@@ -88,24 +89,21 @@ RenderUrlsToFile = function(websitedata, callbackPerUrl, callbackFinal) {
 
 
 
-
-arrayOfUrls = null;
-
 if (system.args.length > 1) {
 //    arrayOfUrls = Array.prototype.slice.call(system.args, 1);
 } else {
-    console.log("Usage: phantomjs render_multi_url.js [domain.name1, domain.name2, ...]");
-    arrayOfUrls = ["www.google.com", "www.bbc.co.uk", "www.phantomjs.org"];
+    console.log("Usage: phantomjs --config=config.json captureurl.js ");
+
 }
 
-RenderUrlsToFile(website, (function(status, pagedata, filename) {
+RenderUrlsToFile(website, (function(status, pagedata) {
     if (status !== "success") {
         return console.log("Unable to render '" + pagedata.url + "'");
     } else {
-        return console.log("Finished Rendering '" + pagedata.url + "' at '" + filename + "'");
+        return console.log("Finished Rendering '" + pagedata.url + "' at '" + pagedata.filename + "'");
     }
 }), function(result) {
     console.log("Final Result: " + result.length);
     phantom.exit()
-    return ;
+
 });
