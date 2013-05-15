@@ -104,6 +104,7 @@ if (system.args.length > 1) {
 //    arrayOfUrls = Array.prototype.slice.call(system.args, 1);
 } else {
     console.log("Usage: phantomjs --config=config.json captureurl.js ");
+    console.log("Check Result on http://localhost:8080/ ");
 
 }
 
