@@ -49,19 +49,11 @@ RenderUrlsToFile = function(websitedata, callbackPerUrl, callbackFinal) {
                 var datenow = new Date();
                 var starttime = datenow.getFullYear()+"-"+datenow.getMonth()+1+"-"+datenow.getDate()+"-"+datenow.getHours()+":"+datenow.getMinutes()+":"+datenow.getSeconds() ;
 
-                pagedata.filename = pagedata.pagename + "-num" + urlIndex + "-" +  starttime + ".png";
+                pagedata.filename = pagedata.pagename + "-num" + urlIndex + ".png";
                 pagedata.status = status;
-                console.log("Start to capture page: " + pagedata.url + ". save in:" + pagedata.filename + ". status:" + pagedata.status);
+                console.log("Start to capture page: " + pagedata.url + ". save in:" + pagedata.filename + ". starttime:" + starttime);
 
                 if (status === "success") {
-                    window.setTimeout((function() {
-                        page.render( pagedata.filename);
-
-                        var datenow = new Date();
-                        var endtime = datenow.getFullYear()+"-"+datenow.getMonth()+1+"-"+datenow.getDate()+"-"+datenow.getHours()+":"+datenow.getMinutes()+":"+datenow.getSeconds() ;
-                        console.log("Finish screenshot time:" + endtime + pagedata.filename );
-                    }), 1000);
-
                     pagedata = page.evaluate(function(pagedata1) {
                         pagedata1.title = document.titlel;
                         pagedata1.title = document.querySelector("title").innerText;
@@ -69,9 +61,17 @@ RenderUrlsToFile = function(websitedata, callbackPerUrl, callbackFinal) {
                         pagedata1.description = document.querySelector("meta[name=Description]").getAttribute("content");
                         return pagedata1;
                     }, pagedata);
-
                     websiteresult.push(pagedata);
-                    return next(status, pagedata);
+
+                    window.setTimeout((function() {
+                        page.render( pagedata.filename);
+
+                        var datenow = new Date();
+                        var endtime = datenow.getFullYear()+"-"+datenow.getMonth()+1+"-"+datenow.getDate()+"-"+datenow.getHours()+":"+datenow.getMinutes()+":"+datenow.getSeconds() ;
+
+                        console.log("Finish capture time: " + endtime);
+                        return next(status, pagedata);
+                    }), 200);
 
                 } else {
                     websiteresult.push(pagedata);
@@ -100,7 +100,7 @@ RenderUrlsToFile(website, (function(status, pagedata) {
     if (status !== "success") {
         return console.log("Unable to render '" + pagedata.url + "'");
     } else {
-        return console.log("Finished Rendering '" + pagedata.url + "' at '" + pagedata.filename + "'");
+        return console.log("Finished Rendering '" + pagedata.url + "' at ' Title:" + pagedata.filename + "'" + pagedata.title);
     }
 }), function(result) {
     console.log("Final Result: " + result.length);
