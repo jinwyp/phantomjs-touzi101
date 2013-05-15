@@ -55,13 +55,24 @@ RenderUrlsToFile = function(websitedata, callbackPerUrl, callbackFinal) {
 
                 if (status === "success") {
                     pagedata = page.evaluate(function(pagedata1) {
-                        pagedata1.title = document.titlel;
+//                        pagedata1.title = document.titlel;
                         pagedata1.title = document.querySelector("title").innerText;
                         pagedata1.keyword = document.querySelector("meta[name=Keywords]").getAttribute("content");
                         pagedata1.description = document.querySelector("meta[name=Description]").getAttribute("content");
                         return pagedata1;
                     }, pagedata);
                     websiteresult.push(pagedata);
+
+/*
+                    Using  jQuery
+                    page.includeJs("http://ajax.googleapis.com/ajax/libs/jquery/1.6.1/jquery.min.js", function() {
+                        page.evaluate(function() {
+                            $("button").click();
+                        });
+                        phantom.exit()
+                    });
+*/
+
 
                     window.setTimeout((function() {
                         page.render( pagedata.filename);
@@ -104,6 +115,27 @@ RenderUrlsToFile(website, (function(status, pagedata) {
     }
 }), function(result) {
     console.log("Final Result: " + result.length);
-    phantom.exit()
+    var server = require('webserver').create();
+    var service = server.listen(8080, function(request, response) {
+        response.statusCode = 200;
+        response.write('<html><body><table>');
+        for(var i=0; i<result.length; i++){
+            response.write('<tr>');
+            response.write('<td>' + result[0].pagename  + '</td>');
+            response.write('<td>' + result[i].title  + '</td>');
+            response.write('<td>' + result[i].url  + '</td>');
+            response.write('<td>' + result[i].keyword  + '</td>');
+            response.write('<td>' + result[i].description  + '</td>');
+            response.write('<td>' + result[i].status  + '</td>');
+            response.write('<td>' + result[i].filename  + '</td>');
+            response.write('</tr>');
+        }
+
+        response.write('</table></body></html>');
+
+        response.close();
+    });
+
+//    phantom.exit()
 
 });
