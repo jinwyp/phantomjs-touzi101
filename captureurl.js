@@ -122,7 +122,7 @@ RenderUrlsToFile(website, (function(status, pagedata) {
         response.write('<html><body><table>');
         for(var i=0; i<result.length; i++){
             response.write('<tr>');
-            response.write('<td>' + result[0].pagename  + '</td>');
+            response.write('<td>' + result[i].pagename  + '</td>');
             response.write('<td>' + result[i].title  + '</td>');
             response.write('<td>' + result[i].url  + '</td>');
             response.write('<td>' + result[i].keyword  + '</td>');
