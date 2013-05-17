@@ -40,20 +40,20 @@ casper.thenOpen('http://touzi101dev1.vcbrands.com/node/add/invcontent', function
 	this.test.assertExists('title', 'article title');
 	this.echo('Page Title: ' + this.getTitle());
 	this.fill('form#invcontent-node-form',{
-		'field_content_type[und]':4,
-		'title':'auto add article-aq title - by casper'
-	}, false);
+		'field_content_type[und]':334,
+		'title':'auto add short article-aq title - by casper'
+	}, true);
 /*	this.evaluate(function() {
     return document.querySelector('#edit-title').;
 });*/
 	var select = this.evaluate(function(){
-		document.querySelector('#edit-field-content-type-und').value = 4; 
+		//document.querySelector('#edit-field-content-type-und').value = 4; 
 		current_value = this.document.querySelector('#edit-field-content-type-und').options[document.querySelector('#edit-field-content-type-und').selectedIndex].text;
 		return current_value;
 	//eturn current_value;
 	});
 	//this.echo('return result: ' + select);
-	this.echo('current_value: ' + current_value);
+	this.echo('current_value: ' + select);
 //	this.echo('fill title:'+ document.querySelector('#edit-field-content-type-und').options[window.document.querySelector('#edit-field-content-type-und').selectedIndex].text);
 	this.echo('fill title:'+ this.getFormValues('form#invcontent-node-form').title);
 	//this.click('input#edit-submit');
