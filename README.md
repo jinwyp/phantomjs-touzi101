@@ -1,8 +1,8 @@
 # [PhantomJS](http://phantomjs.org) - Capture Multipage Screenshots.
 
-## Capture web multipage as a pic. Pls modify variable "website" in  captureurl.js file as json format about the page info you want capture.
-## And run in command line " phantomjs --config=config.json captureurl.js" (change the "outputEncoding" in config.json)
-## Then you can check the result in broswer    http://localhost:8080/
+#### Capture web multipage as a pic. Pls modify variable "website" in  captureurl.js file as json format about the page info you want capture.
+#### And run in command line " phantomjs --config=config.json captureurl.js" (change the "outputEncoding" in config.json)
+#### Then you can check the result in broswer    http://localhost:8080/
 
 
 # [PhantomJS](http://phantomjs.org) - Scriptable Headless WebKit
