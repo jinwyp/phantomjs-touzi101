@@ -1,17 +1,14 @@
-<<<<<<< HEAD
+
 // Capture web page as a pic. Pls modify "website" below as json format about the page info you want capture
 // And run in command line " phantomjs --config=config.json captureurl.js" (change the "outputEncoding" in config.json)
 // Then you can check the result in broswer    http://localhost:8080/
 
 console.log("Usage: phantomjs --config=config.json captureurl.js ");
 console.log("Check Result on http://localhost:8080/ ");
-=======
-// Render Multiple URLs to file
-// console.log("Usage: phantomjs --config=config.json captureurl.js ");
-// console.log("Check Result on http://localhost:8080/ ");
+
 
 var imgsavepath = "./touzi101/";
->>>>>>> origin/casperjs
+
 
 var  website = [
     {"pagename":"homepage-homepage", "url":"http://www.touzi101.cn/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
