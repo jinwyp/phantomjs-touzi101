@@ -3,11 +3,9 @@
 // And run in command line " phantomjs --config=config.json captureurl.js" (change the "outputEncoding" in config.json)
 // Then you can check the result in broswer    http://localhost:8080/
 
-console.log("Usage: phantomjs --config=config.json captureurl.js ");
-console.log("Check Result on http://localhost:8080/ ");
 
 
-var imgsavepath = "./touzi101/";
+var imgsavepath = "./touzi101/";          //Image Saved Path
 
 
 var  website = [
@@ -45,7 +43,7 @@ var  website = [
     {"pagename":"channelmore-whatnew", "url":"http://www.touzi101.cn/personal-finance/whatsnew", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"channelmore-personal-finance-fundamentals", "url":"http://www.touzi101.cn/personal-finance/fundamentals", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"subchannel-Savings", "url":"http://www.touzi101.cn/personal-finance/savings/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"subchannel-Credit & Loans", "url":"http://www.touzi101.cn/personal-finance/credit-loans/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"subchannel-Credit & Loans", "url":"http://www.touzi101.cn/personal-finance/credit-and-loans/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"subchannel-Credit Cards", "url":"http://www.touzi101.cn/personal-finance/credit-cards/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"subchannel-Budgeting", "url":"http://www.touzi101.cn/personal-finance/budgeting", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"subchannel-Insurance", "url":"http://www.touzi101.cn/personal-finance/insurance/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
@@ -139,24 +137,25 @@ var  website = [
     {"pagename":"menu-exam4", "url":"http://www.touzi101.cn/professionals/111455", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"menu-exam5", "url":"http://www.touzi101.cn/professionals/111456", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"Tags-All tags list", "url":"http://www.touzi101.cn/tags/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Tags list-Tag term list", "url":"http://www.touzi101.cn/tags/investing-basics/definitions/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Tags list-Tag Article list", "url":"http://www.touzi101.cn/tags/investing-basics/articles/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Tags list-Tag walkthroughs/tutorials  list", "url":"http://www.touzi101.cn/tags/investing-basics/tutorials/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Tags list-Tag FAQs list", "url":"http://www.touzi101.cn/tags/investing-basics/faqs/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Tags list-Tag Slideshows list", "url":"http://www.touzi101.cn/tags/investing-basics/slideshows/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Single tag-Tag content-type page ", "url":"http://www.touzi101.cn/tags/investing-basics/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Landing page-Single term ", "url":"http://www.touzi101.cn/terms/100ID", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Landing page-Single article", "url":"http://www.touzi101.cn/articles/20130506/200112577/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Landing page-Single walkthroughs/tutorials  ", "url":"http://www.touzi101.cn/tutorials/300111420/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Landing page-Single FAQs ", "url":"http://www.touzi101.cn/faqs/20130503/400111468/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Landing page-Single Slideshows ", "url":"http://www.touzi101.cn/slideshows/500112669/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Landing page-Single examprep ", "url":"http://www.touzi101.cn/professionals/111457/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Tags-list-definitions", "url":"http://www.touzi101.cn/tags/investing-basics/definitions/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Tags-list-articles", "url":"http://www.touzi101.cn/tags/investing-basics/articles/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Tags-list-walkthroughs-tutorials", "url":"http://www.touzi101.cn/tags/investing-basics/tutorials/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Tags-list-faqs", "url":"http://www.touzi101.cn/tags/investing-basics/faqs/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Tags-list-Slideshows", "url":"http://www.touzi101.cn/tags/investing-basics/slideshows/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Single tag-content", "url":"http://www.touzi101.cn/tags/investing-basics/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Landing-page-Single-term ", "url":"http://www.touzi101.cn/terms/a/100111957/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Landing-page-Single-article", "url":"http://www.touzi101.cn/articles/20130506/200112577/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Landing-page-Single-walkthroughs-tutorials  ", "url":"http://www.touzi101.cn/tutorials/300111420/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Landing-page-Single-FAQs ", "url":"http://www.touzi101.cn/faqs/20130503/400111468/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Landing-page-Single-Slideshows ", "url":"http://www.touzi101.cn/slideshows/500112669/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Landing-page-Single-examprep ", "url":"http://www.touzi101.cn/professionals/111457/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"footer-advertise", "url":"http://www.touzi101.cn/corp/advertise", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"footer-writeforus", "url":"http://www.touzi101.cn/corp/writeforus", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"footer-contactus", "url":"http://www.touzi101.cn/corp/contactus", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"footer-termsofuse", "url":"http://www.touzi101.cn/corp/termsofuse", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"footer-privacypolicy", "url":"http://www.touzi101.cn/corp/privacypolicy", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"footer-disclaimerpolicy", "url":"http://www.touzi101.cn/corp/disclaimerpolicy", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""}
+
 
 
 ];
