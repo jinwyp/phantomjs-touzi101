@@ -1,4 +1,14 @@
-// Render Multiple URLs to file
+
+// Capture web page as a pic. Pls modify "website" below as json format about the page info you want capture
+// And run in command line " phantomjs --config=config.json captureurl.js" (change the "outputEncoding" in config.json)
+// Then you can check the result in broswer    http://localhost:8080/
+
+console.log("Usage: phantomjs --config=config.json captureurl.js ");
+console.log("Check Result on http://localhost:8080/ ");
+
+
+var imgsavepath = "./touzi101/";
+
 
 var  website = [
     {"pagename":"homepage-homepage", "url":"http://www.touzi101.cn/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
@@ -162,8 +172,12 @@ Render given urls
 @param callbackPerUrl Function called after finishing each URL, including the last URL
 @param callbackFinal Function called after finishing everything
 */
-RenderUrlsToFile = function(websitedata, callbackPerUrl, callbackFinal) {
+RenderUrlsToFile = function(imgsavepath, websitedata, callbackPerUrl, callbackFinal) {
     var  next, finish, page, retrieve, urlIndex, webpage, websiteresult;
+    if(imgsavepath == null){
+        imgsavepath ="";
+    }
+
     websiteresult = [];
     urlIndex = 0;
     webpage = require("webpage");
@@ -202,11 +216,25 @@ RenderUrlsToFile = function(websitedata, callbackPerUrl, callbackFinal) {
                 if (status === "success") {
                     pagedata = page.evaluate(function(pagedata1) {
 //                        pagedata1.title = document.titlel;
-                        pagedata1.title = document.querySelector("title").innerText;
-                        pagedata1.keyword = document.querySelector("meta[name=Keywords]").getAttribute("content");
-                        pagedata1.description = document.querySelector("meta[name=Description]").getAttribute("content");
-                        pagedata1.h1 = document.querySelector("h1").innerText;
-                        pagedata1.h2 = document.querySelector("h2").innerText;
+                        if(document.querySelector("title") != null){
+                            pagedata1.title = document.querySelector("title").innerText;
+                        }
+
+                        if(document.querySelector("meta[name=Keywords]") != null){
+                            pagedata1.keyword = document.querySelector("meta[name=Keywords]").getAttribute("content");
+                        }
+
+                        if(document.querySelector("meta[name=Description]") != null){
+                            pagedata1.description = document.querySelector("meta[name=Description]").getAttribute("content");
+                        }
+
+                        if(document.querySelector("h1") != null){
+                            pagedata1.h1 = document.querySelector("h1").innerText;
+                        }
+                        if(document.querySelector("h2") != null){
+                            pagedata1.h2 = document.querySelector("h2").innerText;
+                        }
+
 
                         return pagedata1;
                     }, pagedata);
@@ -224,7 +252,7 @@ RenderUrlsToFile = function(websitedata, callbackPerUrl, callbackFinal) {
 
 
                     window.setTimeout((function() {
-                        page.render("./touzi101/" + pagedata.filename);
+                        page.render(imgsavepath + pagedata.filename);
 
                         var datenow = new Date();
                         var endtime = datenow.getFullYear()+"-"+datenow.getMonth()+1+"-"+datenow.getDate()+"-"+datenow.getHours()+":"+datenow.getMinutes()+":"+datenow.getSeconds() ;
@@ -257,7 +285,8 @@ if (system.args.length > 1) {
 
 }
 
-RenderUrlsToFile(website, (function(status, pagedata) {
+
+RenderUrlsToFile(imgsavepath, website, (function(status, pagedata) {
     if (status !== "success") {
         return console.log("Unable to render '" + pagedata.url + "'");
     } else {
@@ -277,6 +306,9 @@ RenderUrlsToFile(website, (function(status, pagedata) {
             response.write('<th>' + 'PAGE DESCRIPTION'  + '</th>');
             response.write('<th>' + 'PAGE STATUS'  + '</th>');
             response.write('<th>' + 'PAGE IMAGE NAME'  + '</th>');
+            response.write('<th>' + 'PAGE H1'  + '</th>');
+            response.write('<th>' + 'PAGE H2'  + '</th>');
+
             response.write('</tr>');
         for(var i=0; i<result.length; i++){
             response.write('<tr>');
@@ -287,6 +319,8 @@ RenderUrlsToFile(website, (function(status, pagedata) {
             response.write('<td>' + result[i].description  + '</td>');
             response.write('<td>' + result[i].status  + '</td>');
             response.write('<td>' + result[i].filename  + '</td>');
+            response.write('<td>' + result[i].h1  + '</td>');
+            response.write('<td>' + result[i].h2  + '</td>');
             response.write('</tr>');
         }
 
