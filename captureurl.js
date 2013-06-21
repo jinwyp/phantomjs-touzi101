@@ -10,6 +10,7 @@ var imgsavepath = "./touzi101/";          //Image Saved Path
 
 var  website = [
     {"pagename":"homepage-homepage", "url":"http://www.touzi101.cn/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"slideshows-homepage", "url":"http://www.touzi101.cn/slideshows/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"channel-Dictionary", "url":"http://www.touzi101.cn/dictionary/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"channelmore-RecentlyAdded", "url":"http://www.touzi101.cn/terms/RecentlyAdded", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"channelmore-termlist", "url":"http://www.touzi101.cn/terms/b/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
@@ -66,7 +67,7 @@ var  website = [
     {"pagename":"subchannel-Options", "url":"http://www.touzi101.cn/active-trading/options/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"channel-Forex", "url":"http://www.touzi101.cn/forex/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"subchannel-Walkthrough", "url":"http://www.touzi101.cn/forex/walkthrough/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"subchannel-Fundamentals", "url":"http://www.touzi101.cn/forex/fundamentals", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"subchannel-Fundamentals", "url":"http://www.touzi101.cn/forex/forex-fundamentals/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"subchannel-Trading Strategies", "url":"http://www.touzi101.cn/forex/trading-strategies/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"channel-Professionals", "url":"http://www.touzi101.cn/professionals/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"subchannel-Global Professional Exams", "url":"http://www.touzi101.cn/professionals/global-professional-exams/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
@@ -137,11 +138,11 @@ var  website = [
     {"pagename":"menu-exam4", "url":"http://www.touzi101.cn/professionals/111455", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"menu-exam5", "url":"http://www.touzi101.cn/professionals/111456", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"Tags-All tags list", "url":"http://www.touzi101.cn/tags/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Tags-list-definitions", "url":"http://www.touzi101.cn/tags/investing-basics/definitions/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Tags-list-articles", "url":"http://www.touzi101.cn/tags/investing-basics/articles/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Tags-list-walkthroughs-tutorials", "url":"http://www.touzi101.cn/tags/investing-basics/tutorials/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Tags-list-faqs", "url":"http://www.touzi101.cn/tags/investing-basics/faqs/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
-    {"pagename":"Tags-list-Slideshows", "url":"http://www.touzi101.cn/tags/investing-basics/slideshows/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Tags-list-definitions", "url":"http://www.touzi101.cn/tags/investing-basics/definition/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Tags-list-articles", "url":"http://www.touzi101.cn/tags/investing-basics/article/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Tags-list-walkthroughs-tutorials", "url":"http://www.touzi101.cn/tags/investing-basics/tutorial/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Tags-list-faqs", "url":"http://www.touzi101.cn/tags/investing-basics/faq/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
+    {"pagename":"Tags-list-Slideshows", "url":"http://www.touzi101.cn/tags/investing-basics/slideshow/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"Single tag-content", "url":"http://www.touzi101.cn/tags/investing-basics/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"Landing-page-Single-term ", "url":"http://www.touzi101.cn/terms/a/100111957/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
     {"pagename":"Landing-page-Single-article", "url":"http://www.touzi101.cn/articles/20130506/200112577/", "title":"", "keyword":"", "description":"", "h1":"", "h2":"", "status":"", "filename":""},
@@ -195,7 +196,7 @@ RenderUrlsToFile = function(imgsavepath, websitedata, callbackPerUrl, callbackFi
     retrieve = function() {
         var pagedata ;
         if (websitedata.length > 0) {
-            pagedata = website.shift();
+            pagedata = websitedata.shift();
             urlIndex++;
             page = webpage.create();
             page.viewportSize = {
@@ -213,29 +214,29 @@ RenderUrlsToFile = function(imgsavepath, websitedata, callbackPerUrl, callbackFi
                 console.log("Start to capture page: " + pagedata.url + ". save in:" + pagedata.filename + ". starttime:" + starttime);
 
                 if (status === "success") {
-                    pagedata = page.evaluate(function(pagedata1) {
+                    pagedata = page.evaluate(function(pagedata2) {
 //                        pagedata1.title = document.titlel;
                         if(document.querySelector("title") != null){
-                            pagedata1.title = document.querySelector("title").innerText;
+                            pagedata2.title = document.querySelector("title").innerText;
                         }
 
                         if(document.querySelector("meta[name=Keywords]") != null){
-                            pagedata1.keyword = document.querySelector("meta[name=Keywords]").getAttribute("content");
+                            pagedata2.keyword = document.querySelector("meta[name=Keywords]").getAttribute("content");
                         }
 
                         if(document.querySelector("meta[name=Description]") != null){
-                            pagedata1.description = document.querySelector("meta[name=Description]").getAttribute("content");
+                            pagedata2.description = document.querySelector("meta[name=Description]").getAttribute("content");
                         }
 
                         if(document.querySelector("h1") != null){
-                            pagedata1.h1 = document.querySelector("h1").innerText;
+                            pagedata2.h1 = document.querySelector("h1").innerText;
                         }
                         if(document.querySelector("h2") != null){
-                            pagedata1.h2 = document.querySelector("h2").innerText;
+                            pagedata2.h2 = document.querySelector("h2").innerText;
                         }
 
 
-                        return pagedata1;
+                        return pagedata2;
                     }, pagedata);
                     websiteresult.push(pagedata);
 
